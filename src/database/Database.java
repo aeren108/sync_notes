@@ -1,0 +1,232 @@
+package database;
+
+import com.mysql.jdbc.*;
+import hash.BCrypt;
+
+import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Database {
+
+    private static Database db = null;
+
+    private Database() {
+
+    }
+
+    public static Database getInstance() {
+        if (db == null)
+            db = new Database();
+        return db;
+    }
+
+    public Connection createConnection(String[] args) throws SQLException {
+        Connection con = DriverManager.getConnection(args[0], args[1], args[2]);
+        return con;
+    }
+
+    public boolean checkLogin(Connection con, String username, String passwd) {
+        boolean success = true;
+        String hashedPswd = BCrypt.hashpw(passwd, BCrypt.gensalt(12));
+        System.out.println(hashedPswd);
+
+        try {
+            String query = "select pswd from sync_notes.users where username='"+username+"';";
+            Statement s = con.createStatement();
+
+            ResultSet rs = s.executeQuery(query);
+
+            if (!rs.next())
+                success = false;
+            else {
+                String pswddb = rs.getString("pswd");
+                if (BCrypt.checkpw(passwd, pswddb)) {
+                    success = true;
+                } else
+                    success = false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            success = false;
+        }
+
+        return success;
+    }
+
+    public boolean createUser(Connection con, String username, String passwd) {
+        boolean success;
+        String hashedPswd = BCrypt.hashpw(passwd, BCrypt.gensalt());
+
+        try {
+            String query = "insert into sync_notes.users values (NULL, '" + username + "', '" + hashedPswd + "');";
+            Statement s = con.createStatement();
+
+            s.executeUpdate(query);
+
+            success = true;
+        } catch (SQLException e) {
+            success = false;
+            e.printStackTrace();
+        }
+
+        return success;
+    }
+
+    public boolean deleteUser(Connection con, String username, String passwd) {
+        boolean success;
+        String hashedPswd = BCrypt.hashpw(passwd, BCrypt.gensalt());
+
+        try {
+            String query = "delete from sync_notes.users where username=? and pswd=?;";
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setString(1, username);
+            ps.setString(2, hashedPswd);
+            ResultSet rs = ps.executeQuery();
+
+            success = true;
+        } catch (SQLException e) {
+            success = false;
+            e.printStackTrace();
+        }
+
+        return success;
+    }
+
+    public String fetchNote(Connection con, int id) {
+        String note = "";
+        try {
+            String query = "select note from sync_notes.notes where id="+id+";";
+            Statement s = con.createStatement();
+
+            ResultSet rs = s.executeQuery(query);
+
+            while (rs.next()) {
+                note = rs.getString("note");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return note;
+    }
+
+    public Map<Integer, String> fetchNotes(Connection con, String username) {
+        Map<Integer, String> notes = new HashMap<>();
+
+        try {
+            String query = "select id, note from sync_notes.notes where who='"+username+"';";
+            Statement s = con.createStatement();
+
+            ResultSet rs = s.executeQuery(query);
+
+            while (rs.next()) {
+                notes.put(rs.getInt("id"), rs.getString("note"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return notes;
+    }
+
+    public boolean deleteNote(Connection con, int id) {
+        boolean success;
+
+        try {
+            String query = "delete from sync_notes.notes where id=?;";
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setInt(1, id);
+            ps.executeUpdate();
+
+            success = true;
+        } catch (SQLException e) {
+            success = false;
+            e.printStackTrace();
+        }
+
+        return success;
+    }
+
+    public boolean uploadNote(Connection con, String username, String desc) {
+        boolean success;
+
+        try {
+            String query = "insert into sync_notes.notes values (NULL, ?, ?, NULL);";
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setString(1, username);
+            ps.setString(2, desc);
+            ps.executeUpdate();
+
+            success = true;
+        } catch (SQLException e) {
+            success = false;
+            e.printStackTrace();
+        }
+
+        return success;
+    }
+
+    public boolean updateNote(Connection con, int id, String content) {
+        boolean success;
+
+        try {
+            String backup = fetchNote(con, id);
+
+            if (!backup.equals(content)) {
+                String query0 = "update sync_notes.notes set backup=? where id=?;";
+                PreparedStatement prs = con.prepareStatement(query0);
+
+                prs.setString(1, backup);
+                prs.setInt(2, id);
+                prs.executeUpdate();
+            }
+
+            String query1 = "update sync_notes.notes set note=? where id=?;";
+            PreparedStatement ps = con.prepareStatement(query1);
+
+            ps.setString(1, content);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+
+            success = true;
+        } catch (SQLException e) {
+            success = false;
+            e.printStackTrace();
+        }
+
+        return success;
+    }
+
+    public int findID(Connection con, String content) {
+        int id = 0;
+        try {
+            String query = "select id from sync_notes.notes where note='"+content+"';";
+            Statement s = con.createStatement();
+
+            ResultSet rs = s.executeQuery(query);
+
+            while (rs.next()) {
+                id = rs.getInt("id");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return id;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        throw new CloneNotSupportedException();
+    }
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx/8.0.121"
+      xmlns:fx="http://javafx.com/fxml/1"
+      maxHeight="-Infinity" maxWidth="-Infinity"
+      minHeight="35" minWidth="-Infinity"
+      prefHeight="400" prefWidth="300.0"
+      fx:controller="controller.NoteController">
+
+    <HBox fx:id="bar" maxHeight="35" minHeight="35" prefHeight="35" prefWidth="250" onMousePressed="#onPressed" onMouseDragged="#onDragged" style="-fx-background-color: #ede144;">
+        <Button fx:id="add" onAction="#handleAction" text="N" wrapText="true" />
+        <Button fx:id="sync" onAction="#handleAction" text="S" wrapText="true" />
+        <Pane minWidth="120" HBox.hgrow="ALWAYS" />
+        <Button fx:id="del" onAction="#handleAction" text="T" wrapText="true" />
+        <Button fx:id="close" onAction="#handleAction" text="X" wrapText="true" />
+    </HBox>
+
+    <TextArea fx:id="content" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" minHeight="250" minWidth="300" prefHeight="380.0" prefWidth="300.0" />
+
+</VBox>
