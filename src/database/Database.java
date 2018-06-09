@@ -36,7 +36,7 @@ public class Database {
         System.out.println(hashedPswd);
 
         try {
-            String query = "select pswd from sync_notes.users where username='"+username+"';";
+            String query = "select pswd from sql7242098.users where username='"+username+"';";
             Statement s = con.createStatement();
 
             ResultSet rs = s.executeQuery(query);
@@ -63,7 +63,7 @@ public class Database {
         String hashedPswd = BCrypt.hashpw(passwd, BCrypt.gensalt());
 
         try {
-            String query = "insert into sync_notes.users values (NULL, '" + username + "', '" + hashedPswd + "');";
+            String query = "insert into sql7242098.users values (NULL, '" + username + "', '" + hashedPswd + "');";
             Statement s = con.createStatement();
 
             s.executeUpdate(query);
@@ -82,7 +82,7 @@ public class Database {
         String hashedPswd = BCrypt.hashpw(passwd, BCrypt.gensalt());
 
         try {
-            String query = "delete from sync_notes.users where username=? and pswd=?;";
+            String query = "delete from sql7242098.users where username=? and pswd=?;";
             PreparedStatement ps = con.prepareStatement(query);
 
             ps.setString(1, username);
@@ -101,7 +101,7 @@ public class Database {
     public String fetchNote(Connection con, int id) {
         String note = "";
         try {
-            String query = "select note from sync_notes.notes where id="+id+";";
+            String query = "select note from sql7242098.notes where id="+id+";";
             Statement s = con.createStatement();
 
             ResultSet rs = s.executeQuery(query);
@@ -120,7 +120,7 @@ public class Database {
         Map<Integer, String> notes = new HashMap<>();
 
         try {
-            String query = "select id, note from sync_notes.notes where who='"+username+"';";
+            String query = "select id, note from sql7242098.notes where who='"+username+"';";
             Statement s = con.createStatement();
 
             ResultSet rs = s.executeQuery(query);
@@ -140,7 +140,7 @@ public class Database {
         boolean success;
 
         try {
-            String query = "delete from sync_notes.notes where id=?;";
+            String query = "delete from sql7242098.notes where id=?;";
             PreparedStatement ps = con.prepareStatement(query);
 
             ps.setInt(1, id);
@@ -159,11 +159,12 @@ public class Database {
         boolean success;
 
         try {
-            String query = "insert into sync_notes.notes values (NULL, ?, ?, NULL);";
+            String query = "insert into sql7242098.notes values (NULL, ?, ?, ?);";
             PreparedStatement ps = con.prepareStatement(query);
 
             ps.setString(1, username);
             ps.setString(2, desc);
+            ps.setString(3, "");
             ps.executeUpdate();
 
             success = true;
@@ -175,22 +176,22 @@ public class Database {
         return success;
     }
 
-    public boolean updateNote(Connection con, int id, String content) {
+    public boolean updateNote(Connection con, int id, String content, boolean backup) {
         boolean success;
 
         try {
-            String backup = fetchNote(con, id);
+            String toBackup = fetchNote(con, id);
 
-            if (!backup.equals(content)) {
-                String query0 = "update sync_notes.notes set backup=? where id=?;";
+            if (!toBackup.equals(content) && backup) {
+                String query0 = "update sql7242098.notes set backup=? where id=?;";
                 PreparedStatement prs = con.prepareStatement(query0);
 
-                prs.setString(1, backup);
+                prs.setString(1, toBackup);
                 prs.setInt(2, id);
                 prs.executeUpdate();
             }
 
-            String query1 = "update sync_notes.notes set note=? where id=?;";
+            String query1 = "update sql7242098.notes set note=? where id=?;";
             PreparedStatement ps = con.prepareStatement(query1);
 
             ps.setString(1, content);
@@ -206,10 +207,37 @@ public class Database {
         return success;
     }
 
+    public String loadFromBackup(Connection con, int id) {
+        String backupNote = "";
+
+        try {
+            String fetchQuery = "select backup from sql7242098.notes where id='" + id + "';";
+            Statement fetchStmt = con.createStatement();
+
+            String updateQuery = "update sql7242098.notes set backup=? where id=?;";
+            PreparedStatement updateStmt = con.prepareStatement(updateQuery);
+
+            updateStmt.setString(1, "");
+            updateStmt.setInt(2, id);
+
+            updateStmt.executeUpdate();
+
+            ResultSet rs = fetchStmt.executeQuery(fetchQuery);
+
+            while (rs.next())
+                backupNote = rs.getString("backup");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return backupNote;
+    }
+
     public int findID(Connection con, String content) {
         int id = 0;
         try {
-            String query = "select id from sync_notes.notes where note='"+content+"';";
+            String query = "select id from sql7242098.notes where note='"+content+"';";
             Statement s = con.createStatement();
 
             ResultSet rs = s.executeQuery(query);

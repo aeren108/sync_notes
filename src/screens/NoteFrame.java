@@ -25,20 +25,20 @@ public class NoteFrame extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader();
-        Parent root = loader.load(getClass().getResource("../style/note_frame.fxml").openStream());
+        Parent root = loader.load(getClass().getResource("/style/note_frame.fxml").openStream());
 
         BorderlessScene scene = new BorderlessScene(primaryStage, root);
-        scene.getStylesheets().add("/style/style.css");
+        scene.getStylesheets().add("/style/yellow_theme.css");
         scene.setResizable(true);
 
         NoteController con = loader.getController();
         con.setContent(note);
         con.setID(id);
 
-        primaryStage.setWidth(250);
+        primaryStage.setWidth(240);
         primaryStage.setHeight(350);
         primaryStage.setMinHeight(35);
-        primaryStage.setMinWidth(50);
+        primaryStage.setMinWidth(80);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

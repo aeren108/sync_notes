@@ -11,7 +11,7 @@ public class LoginScreen extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("../style/login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/style/login.fxml"));
         Scene scene = new Scene(root, 400, 200);
 
         primaryStage.setTitle("Sync-Notes");

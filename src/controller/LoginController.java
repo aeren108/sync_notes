@@ -22,7 +22,7 @@ public class LoginController implements Initializable {
 
     private Database db;
     private Connection con;
-    private final String[] args = {"jdbc:mysql://localhost:4242", "aeren", "11471147"};
+    private final String[] args = {"jdbc:mysql://sql7.freemysqlhosting.net:3306", "username", "password"};
 
     @FXML private TextField username;
     @FXML private TextField pswd;

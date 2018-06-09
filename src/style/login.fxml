@@ -11,12 +11,13 @@
       fx:controller="controller.LoginController"
       spacing="30"
       alignment="CENTER"
+      minHeight="200.0" minWidth="400.0"
       prefHeight="200.0" prefWidth="400.0">
 
     <TextField fx:id="username" promptText="Username" minWidth="100" minHeight="30"  maxHeight="30" maxWidth="250" />
     <TextField fx:id="pswd" promptText="Password" minWidth="100" minHeight="30" maxHeight="30" maxWidth="250" />
 
-    <HBox alignment="CENTER" spacing="120">
+    <HBox alignment="CENTER" spacing="145">
         <Button fx:id="login" text="Login" wrapText="true" onAction="#handleAction"/>
         <Button fx:id="register" text="Register" wrapText="true" onAction="#handleAction"/>
     </HBox>

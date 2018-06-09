@@ -8,7 +8,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import screens.NoteFrame;
 
@@ -19,8 +21,11 @@ import java.util.ResourceBundle;
 
 public class NoteController implements Initializable {
 
+    @FXML private HBox bar;
+
     @FXML private Button add;
     @FXML private Button sync;
+    @FXML private Button backup;
     @FXML private Button del;
     @FXML private Button close;
 
@@ -28,7 +33,13 @@ public class NoteController implements Initializable {
 
     private Database db;
     private Connection con;
-    private final String[] args = {"jdbc:mysql://localhost:4242", "aeren", "11471147"};
+    private final String[] args = {"jdbc:mysql://sql7.freemysqlhosting.net:3306", "username", "password"};
+
+    private final Tooltip tAdd = new Tooltip("New");
+    private final Tooltip tSync = new Tooltip("Synchronise");
+    private final Tooltip tBackup = new Tooltip("Load from last backup");
+    private final Tooltip tDel = new Tooltip("Delete");
+    private final Tooltip tClose = new Tooltip("Close window");
 
     private int id;
     private boolean synced;
@@ -44,6 +55,14 @@ public class NoteController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        tAdd.getStyleClass().add("ttip");
+        tSync.getStyleClass().add("ttip");
+        tBackup.getStyleClass().add("ttip");
+        tDel.getStyleClass().add("ttip");
+        tClose.getStyleClass().add("ttip");
+
+        bar.getStyleClass().add("hbox");
     }
 
     public void handleAction(ActionEvent e) {
@@ -60,7 +79,7 @@ public class NoteController implements Initializable {
                 return;
 
             if (id != 0) {
-                if (db.updateNote(con, id, currentContent)) {
+                if (db.updateNote(con, id, currentContent, true)) {
                     synced = true;
 
                 }
@@ -68,7 +87,23 @@ public class NoteController implements Initializable {
                 if (db.uploadNote(con, User.getCurrentUser().getUsername(), currentContent)) {
                     synced = true;
                     id = db.findID(con, content.getText());
-                    // TODO: 7.06.2018 make alert about upload process
+                    // TODO: 7.06.2018 make alert about successful upload query
+                }
+            }
+        } else if (e.getSource() == backup) {
+            if (id == 0) {
+                id = db.findID(con, content.getText());
+
+                String fromBackup = db.loadFromBackup(con, id);
+
+                if (db.updateNote(con, id, fromBackup, false)) {
+                    content.setText(fromBackup);
+                }
+            } else {
+                String fromBackup = db.loadFromBackup(con, id);
+
+                if (db.updateNote(con, id, fromBackup, false)) {
+                    content.setText(fromBackup);
                 }
             }
         } else if (e.getSource() == del){
@@ -96,17 +131,48 @@ public class NoteController implements Initializable {
             String currentContent = content.getText();
 
             if (id != 0) {
-                if (db.updateNote(con, id, currentContent)) {
-                    // TODO: 7.06.2018 make alert about update process
+                if (db.updateNote(con, id, currentContent, true)) {
+                    // TODO: 7.06.2018 make alert about successful update query
                 }
             } else if (id == 0 && !synced){
                 if (db.uploadNote(con, User.getCurrentUser().getUsername(), currentContent)) {
-                    // TODO: 7.06.2018 make alert about upload process
+                    // TODO: 7.06.2018 make alert about successful upload query
                 }
             }
 
             Stage s = (Stage) ((Node) e.getSource()).getScene().getWindow();
             s.close();
+        }
+    }
+
+    public void mouseEntered(MouseEvent e) {
+        double x = e.getScreenX();
+        double y = e.getScreenY();
+
+        if (e.getSource() == add) {
+            tAdd.show(add, x+4, y+4);
+        } else if (e.getSource() == sync) {
+            tSync.show(sync, x+4, y+4);
+        } else if (e.getSource() == backup) {
+            tBackup.show(backup, x+4, y+4);
+        } else if (e.getSource() == del) {
+            tDel.show(del, x+4, y+4);
+        } else if (e.getSource() == close) {
+            tClose.show(close, x+4, y+4);
+        }
+    }
+
+    public void mouseExited(MouseEvent e) {
+        if (e.getSource() == add) {
+            tAdd.hide();
+        } else if (e.getSource() == sync) {
+            tSync.hide();
+        } else if (e.getSource() == backup) {
+            tBackup.hide();
+        } else if (e.getSource() == del) {
+            tDel.hide();
+        } else if (e.getSource() == close) {
+            tClose.hide();
         }
     }
 

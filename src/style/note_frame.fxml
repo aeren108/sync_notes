@@ -13,12 +13,13 @@
       prefHeight="400" prefWidth="300.0"
       fx:controller="controller.NoteController">
 
-    <HBox fx:id="bar" maxHeight="35" minHeight="35" prefHeight="35" prefWidth="250" onMousePressed="#onPressed" onMouseDragged="#onDragged" style="-fx-background-color: #ede144;">
-        <Button fx:id="add" onAction="#handleAction" text="N" wrapText="true" />
-        <Button fx:id="sync" onAction="#handleAction" text="S" wrapText="true" />
-        <Pane minWidth="120" HBox.hgrow="ALWAYS" />
-        <Button fx:id="del" onAction="#handleAction" text="T" wrapText="true" />
-        <Button fx:id="close" onAction="#handleAction" text="X" wrapText="true" />
+    <HBox fx:id="bar" maxHeight="35" minHeight="35" prefHeight="35" prefWidth="250" onMousePressed="#onPressed" onMouseDragged="#onDragged">
+        <Button fx:id="add" onAction="#handleAction" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="N" wrapText="true" />
+        <Button fx:id="sync" onAction="#handleAction" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="S" wrapText="true" />
+        <Button fx:id="backup" onAction="#handleAction" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="B" wrapText="true" />
+        <Pane minWidth="80" HBox.hgrow="ALWAYS" />
+        <Button fx:id="del" onAction="#handleAction" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="T" wrapText="true" />
+        <Button fx:id="close" onAction="#handleAction" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="X" wrapText="true" />
     </HBox>
 
     <TextArea fx:id="content" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" minHeight="250" minWidth="300" prefHeight="380.0" prefWidth="300.0" />
