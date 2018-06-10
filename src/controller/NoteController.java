@@ -46,6 +46,11 @@ public class NoteController implements Initializable {
     private final Tooltip tSync = new Tooltip("Synchronise");
     private final Tooltip tDel = new Tooltip("Delete");
     private final Tooltip tClose = new Tooltip("Close window");
+    
+    /* I decalred a lot of Tooltip objects for each button in the app.
+     * I could do button.setTooltip(new Tooltip("bla bla")).I didn't because
+     * Buttons can't describe what they do exactly, so I want tooltips to appear immediately
+     */
 
     private String currentTheme = "yellow_theme";
 
@@ -94,7 +99,7 @@ public class NoteController implements Initializable {
                 if (db.uploadNote(con, User.getCurrentUser().getUsername(), currentContent)) {
                     synced = true;
                     id = db.findID(con, content.getText());
-                    // TODO: 7.06.2018 make alert about successful upload query
+                    // TODO: 7.06.2018 make alert 
                 }
             }
         } else if (e.getSource() == del) {
@@ -107,14 +112,14 @@ public class NoteController implements Initializable {
                     Stage s = (Stage) ((Node) e.getSource()).getScene().getWindow();
                     s.close();
 
-                    // TODO: 8.06.2018 make alert about deleting process
+                    // TODO: 8.06.2018 make alert 
                 }
             } else if (id != 0) {
                 if (db.deleteNote(con, id)) {
                     Stage s = (Stage) ((Node) e.getSource()).getScene().getWindow();
                     s.close();
 
-                    // TODO: 8.06.2018 make alert about deleting process 
+                    // TODO: 8.06.2018 make alert 
                 }
             }
 
@@ -123,6 +128,7 @@ public class NoteController implements Initializable {
             String properties = close.getScene().getWidth()+","+close.getScene().getHeight()+","+close.getScene().getWindow().getX()+","+close.getScene().getWindow().getY();
 
             if (id != 0) {
+<<<<<<< HEAD
                 db.updateNote(con, id, currentContent, true);
                 db.updateProperties(con, id, properties);
                 db.updateTheme(con, db.findID(con, currentContent), currentTheme);
@@ -131,6 +137,15 @@ public class NoteController implements Initializable {
                     db.uploadNote(con, User.getCurrentUser().getUsername(), currentContent);
                 db.updateProperties(con, db.findID(con, currentContent), properties);
                 db.updateTheme(con, db.findID(con, currentContent), currentTheme);
+=======
+                if (db.updateNote(con, id, currentContent, true)) {
+                    // TODO: 7.06.2018 make alert
+                }
+            } else if (id == 0 && !synced){
+                if (db.uploadNote(con, User.getCurrentUser().getUsername(), currentContent)) {
+                    // TODO: 7.06.2018 make alert 
+                }
+>>>>>>> 77389d4b2b2fbbb0c0b788ceb6f1edc91d526dff
             }
 
             Stage s = (Stage) ((Node) e.getSource()).getScene().getWindow();
