@@ -40,6 +40,11 @@ public class NoteController implements Initializable {
     private final Tooltip tBackup = new Tooltip("Load from last backup");
     private final Tooltip tDel = new Tooltip("Delete");
     private final Tooltip tClose = new Tooltip("Close window");
+    
+    /* I decalred a lot of Tooltip objects for each button in the app.
+     * I could do button.setTooltip(new Tooltip("bla bla")).I didn't because
+     * Buttons can't describe what they do exactly, so I want tooltips to appear immediately
+     */
 
     private int id;
     private boolean synced;
@@ -87,7 +92,7 @@ public class NoteController implements Initializable {
                 if (db.uploadNote(con, User.getCurrentUser().getUsername(), currentContent)) {
                     synced = true;
                     id = db.findID(con, content.getText());
-                    // TODO: 7.06.2018 make alert about successful upload query
+                    // TODO: 7.06.2018 make alert 
                 }
             }
         } else if (e.getSource() == backup) {
@@ -116,14 +121,14 @@ public class NoteController implements Initializable {
                     Stage s = (Stage) ((Node) e.getSource()).getScene().getWindow();
                     s.close();
 
-                    // TODO: 8.06.2018 make alert about deleting process
+                    // TODO: 8.06.2018 make alert 
                 }
             } else if (id != 0) {
                 if (db.deleteNote(con, id)) {
                     Stage s = (Stage) ((Node) e.getSource()).getScene().getWindow();
                     s.close();
 
-                    // TODO: 8.06.2018 make alert about deleting process 
+                    // TODO: 8.06.2018 make alert 
                 }
             }
                 
@@ -132,11 +137,11 @@ public class NoteController implements Initializable {
 
             if (id != 0) {
                 if (db.updateNote(con, id, currentContent, true)) {
-                    // TODO: 7.06.2018 make alert about successful update query
+                    // TODO: 7.06.2018 make alert
                 }
             } else if (id == 0 && !synced){
                 if (db.uploadNote(con, User.getCurrentUser().getUsername(), currentContent)) {
-                    // TODO: 7.06.2018 make alert about successful upload query
+                    // TODO: 7.06.2018 make alert 
                 }
             }
 
