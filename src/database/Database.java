@@ -45,6 +45,7 @@ public class Database {
                 success = false;
             else {
                 String pswddb = rs.getString("pswd");
+
                 if (BCrypt.checkpw(passwd, pswddb)) {
                     success = true;
                 } else
@@ -220,12 +221,12 @@ public class Database {
             updateStmt.setString(1, "");
             updateStmt.setInt(2, id);
 
-            updateStmt.executeUpdate();
-
             ResultSet rs = fetchStmt.executeQuery(fetchQuery);
 
             while (rs.next())
                 backupNote = rs.getString("backup");
+
+            updateStmt.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -251,6 +252,84 @@ public class Database {
         }
 
         return id;
+    }
+
+    public String fetchProperties(Connection con, int id) {
+        String properties = "";
+        try {
+            String query = "select properties from sql7242098.notes where id="+id+";";
+            Statement s = con.createStatement();
+
+            ResultSet rs = s.executeQuery(query);
+
+            while (rs.next()) {
+                properties = rs.getString("properties");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return properties;
+    }
+
+    public boolean updateProperties(Connection con, int id, String properties) {
+        boolean success;
+
+        try {
+            String query1 = "update sql7242098.notes set properties=? where id=?;";
+            PreparedStatement ps = con.prepareStatement(query1);
+
+            ps.setString(1, properties);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+
+            success = true;
+        } catch (SQLException e) {
+            success = false;
+            e.printStackTrace();
+        }
+
+        return success;
+    }
+
+    public String fetchTheme(Connection con, int id) {
+        String theme = "";
+        try {
+            String query = "select theme from sql7242098.notes where id="+id+";";
+            Statement s = con.createStatement();
+
+            ResultSet rs = s.executeQuery(query);
+
+            while (rs.next()) {
+                theme = rs.getString("theme");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return theme;
+    }
+
+    public boolean updateTheme(Connection con, int id, String theme) {
+        boolean success;
+
+        try {
+            String query1 = "update sql7242098.notes set theme=? where id=?;";
+            PreparedStatement ps = con.prepareStatement(query1);
+
+            ps.setString(1, theme);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+
+            success = true;
+        } catch (SQLException e) {
+            success = false;
+            e.printStackTrace();
+        }
+
+        return success;
     }
 
     @Override

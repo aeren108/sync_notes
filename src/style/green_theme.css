@@ -9,7 +9,7 @@
 }
 
 .button:hover {
-    -fx-background-color: #f7eb47;
+    -fx-background-color: #12e257;
 }
 
 .text-area {
@@ -23,11 +23,11 @@
 }
 
 .hbox {
-    -fx-background-color: #ede144;
+    -fx-background-color: #0dbc47;
 }
 
 .text-area .content {
-    -fx-background-color: #ffffce;
+    -fx-background-color: #99ffba;
 }
 
 .text-area .scroll-pane {
@@ -59,7 +59,7 @@
 }
 
 .ttip{
-    -fx-background-color: #fff57a;
+    -fx-background-color: #89ffb0;
     -fx-text-fill: #262626;
     -fx-font-size: 0.95em;
     -fx-background-radius: 0 0 0 0;
@@ -77,12 +77,12 @@
 }
 
 .menu-button .label {
-    -fx-background-color: #ede144;
+    -fx-background-color: #0dbc47;
     -fx-text-fill: white;
 }
 
 .menu-button .label:hover {
-     -fx-background-color: #f7eb47;
+     -fx-background-color: #12e257;
 }
 
 .menu-button .arrow-button {
@@ -94,30 +94,28 @@
 }
 
 .menu-item {
-    -fx-background-color: #fff8a0;
+    -fx-background-color: #7affa6;
     -fx-font-size: 1em;
 }
 
 .menu-item:hover {
-    -fx-background-color: #fff259;
+    -fx-background-color: #47ff84;
 }
 
 .menu-item .label {
-    -fx-background-color: #fff8a0;
+    -fx-background-color: #8af7ae;
     -fx-text-fill: #262626;
 }
 
 .menu-item:hover .label {
-    -fx-background-color: #fff259;
+    -fx-background-color: #47ff84;
     -fx-text-fill: #262626;
 }
 
 .context-menu {
-    -fx-background-color: #fff8a0;
+    -fx-background-color: #7affa6;
 }
 
 .menu .menu-item .label {
     -fx-font-size: 0.7em;
 }
-
-

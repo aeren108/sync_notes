@@ -1,27 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx/8.0.121"
-      xmlns:fx="http://javafx.com/fxml/1"
-      maxHeight="-Infinity" maxWidth="-Infinity"
-      minHeight="35" minWidth="-Infinity"
-      prefHeight="400" prefWidth="300.0"
-      fx:controller="controller.NoteController">
 
-    <HBox fx:id="bar" maxHeight="35" minHeight="35" prefHeight="35" prefWidth="250" onMousePressed="#onPressed" onMouseDragged="#onDragged">
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.CustomMenuItem?>
+<?import javafx.scene.control.Menu?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="35" minWidth="-Infinity" prefHeight="400" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NoteController">
+
+    <HBox fx:id="bar" maxHeight="35" minHeight="35" onMouseDragged="#onDragged" onMousePressed="#onPressed" prefHeight="35" prefWidth="250">
         <Button fx:id="add" onAction="#handleAction" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="N" wrapText="true" />
         <Button fx:id="sync" onAction="#handleAction" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="S" wrapText="true" />
-        <Button fx:id="backup" onAction="#handleAction" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="B" wrapText="true" />
-        <Pane minWidth="80" HBox.hgrow="ALWAYS" />
-        <Button fx:id="del" onAction="#handleAction" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="T" wrapText="true" />
+        <MenuButton mnemonicParsing="false" wrapText="true" text="&#9660;"> <!--  -->
+            <items>
+                <MenuItem fx:id="backup" mnemonicParsing="false" text="Load backup" onAction="#handleAction"/>
+                <Menu fx:id="menu" mnemonicParsing="false" text="Change theme">
+                    <items>
+                        <MenuItem fx:id="yellow" mnemonicParsing="false" text="Yellow" onAction="#handleTheme" />
+                        <MenuItem fx:id="green" mnemonicParsing="false" text="Green" onAction="#handleTheme" />
+                        <MenuItem fx:id="purple" mnemonicParsing="false" text="Purple" onAction="#handleTheme" />
+                        <MenuItem fx:id="blue" mnemonicParsing="false" text="Blue" onAction="#handleTheme" />
+                    </items>
+                </Menu>
+            </items>
+        </MenuButton>
+        <Pane minWidth="50" HBox.hgrow="ALWAYS" />
+        <Button fx:id="del" onAction="#handleAction" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="D" wrapText="true" />
         <Button fx:id="close" onAction="#handleAction" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="X" wrapText="true" />
     </HBox>
 
-    <TextArea fx:id="content" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" minHeight="250" minWidth="300" prefHeight="380.0" prefWidth="300.0" />
+    <TextArea fx:id="content" minHeight="250" minWidth="300" prefHeight="380.0" prefWidth="300.0" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
 
 </VBox>

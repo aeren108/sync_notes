@@ -12,7 +12,7 @@ public class LoginScreen extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/style/login.fxml"));
-        Scene scene = new Scene(root, 400, 200);
+        Scene scene = new Scene(root, 350, 220);
 
         primaryStage.setTitle("Sync-Notes");
         primaryStage.setResizable(false);

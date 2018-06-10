@@ -22,7 +22,7 @@ public class LoginController implements Initializable {
 
     private Database db;
     private Connection con;
-    private final String[] args = {"jdbc:mysql://sql7.freemysqlhosting.net:3306", "username", "password"};
+    private final String[] args = {"jdbc:mysql://sql7.freemysqlhosting.net:3306", "sql7242098", "Uitb4SB6vl"};
 
     @FXML private TextField username;
     @FXML private TextField pswd;
@@ -55,7 +55,24 @@ public class LoginController implements Initializable {
                 try {
                     if (!User.getCurrentUser().getNotes().isEmpty())
                         for (Map.Entry<Integer, String> entry : User.getCurrentUser().getNotes().entrySet()) {
-                            new NoteFrame(entry.getValue(), entry.getKey()).start(new Stage());
+                            String theme = db.fetchTheme(con, entry.getKey());
+                            String[] properties = db.fetchProperties(con, entry.getKey()).split(",");
+                            System.out.println(properties.length);
+                            if (properties.length != 0 && properties.length != 1) {
+                                double w = Double.parseDouble(properties[0]);
+                                double h = Double.parseDouble(properties[1]);
+                                double x = Double.parseDouble(properties[2]);
+                                double y = Double.parseDouble(properties[3]);
+
+                                if (theme.isEmpty())
+                                    theme = "yellow_theme";
+
+                                NoteFrame note = new NoteFrame(entry.getValue(), entry.getKey(), theme, w, h, x, y);
+                                note.start(new Stage());
+                            } else {
+                                NoteFrame note = new NoteFrame(entry.getValue(), entry.getKey(), "yellow_theme", 240, 320, 0, 0);
+                                note.start(new Stage());
+                            }
                         }
                     else
                         new NoteFrame().start(new Stage());
