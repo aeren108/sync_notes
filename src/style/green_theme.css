@@ -27,7 +27,7 @@
 }
 
 .text-area .content {
-    -fx-background-color: #99ffba;
+    -fx-background-color: #9bffbc;
 }
 
 .text-area .scroll-pane {
@@ -118,4 +118,15 @@
 
 .menu .menu-item .label {
     -fx-font-size: 0.7em;
+}
+
+.jfx-snackbar-content {
+    -fx-background-color: #0dbc47d9;
+
+}
+
+.jfx-snackbar-toast {
+   -fx-text-fill: #000000;
+   -fx-opacity: 1.0;
+   -fx-font-size: 1em;
 }

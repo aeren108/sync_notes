@@ -36,6 +36,11 @@ public class NoteFrame extends Application {
         theme = "yellow_theme";
     }
 
+    public void setPosition(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader();
