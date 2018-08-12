@@ -4,10 +4,10 @@ This is the desktop application.
 
 #Screenshots
 
-![Yellow Theme](https://github.com/aeren108/sync_notes/blob/master/pics/sync_notes-01.png)
 ![Green Theme](https://github.com/aeren108/sync_notes/blob/master/pics/sync_notes-02.png)
-![Expanded](https://github.com/aeren108/sync_notes/blob/master/pics/sync_notes-03.png)
+![Yellow Theme](https://github.com/aeren108/sync_notes/blob/master/pics/sync_notes-01.png)
 ![Login/Register Screen](https://github.com/aeren108/sync_notes/blob/master/pics/sync_notes-04.png)
+![Expanded](https://github.com/aeren108/sync_notes/blob/master/pics/sync_notes-03.png)
 
 I am using letters instead of icons <br><br>
 
