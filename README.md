@@ -2,7 +2,7 @@
 sync_notes is a application that allows you to synchronise sticky notes between android and desktop.<br>
 This is the desktop application.
 
-#Screenshots
+# Screenshots
 
 ![Green Theme](https://github.com/aeren108/sync_notes/blob/master/pics/sync_notes-02.png)
 ![Yellow Theme](https://github.com/aeren108/sync_notes/blob/master/pics/sync_notes-01.png)
