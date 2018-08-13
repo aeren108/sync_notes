@@ -11,8 +11,8 @@ This is the desktop application.
 
 I am using letters instead of icons <br><br>
 
-N -> New note<br>
-S -> Synchronize (automatically backups old note)<br>
+N  -> New note<br>
+S  -> Synchronize (automatically backups old note)<br>
 ▼ -> Opens the menu (load backup, change theme)<br>
 D -> Delete note<br>
 X -> Close window<br>
