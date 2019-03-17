@@ -30,8 +30,8 @@ public class NoteFrame extends Application {
         id = 0;
         w = 240;
         h = 350;
-        x = 0;
-        y = 0;
+        x = 10;
+        y = 30;
 
         theme = "yellow_theme";
     }
@@ -60,7 +60,7 @@ public class NoteFrame extends Application {
         primaryStage.setX(x);
         primaryStage.setY(y);
         primaryStage.setMinHeight(35);
-        primaryStage.setMinWidth(185);
+        primaryStage.setMinWidth(80);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

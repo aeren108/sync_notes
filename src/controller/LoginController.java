@@ -22,7 +22,7 @@ public class LoginController implements Initializable {
 
     private Database db;
     private Connection con;
-    private final String[] args = {"jdbc:mysql://hostname:3306", "username", "password"};
+    private final String[] args = {"jdbc:mysql://remotemysql.com:3306", "eipTeMBY7h", "2kSyZuZRsP"};
 
     @FXML private TextField username;
     @FXML private TextField pswd;
@@ -70,7 +70,9 @@ public class LoginController implements Initializable {
                                 NoteFrame note = new NoteFrame(entry.getValue(), entry.getKey(), theme, w, h, x, y);
                                 note.start(new Stage());
                             } else {
-                                NoteFrame note = new NoteFrame(entry.getValue(), entry.getKey(), "yellow_theme", 240, 320, 0, 0);
+                                if (theme.isEmpty())
+                                    theme = "yellow_theme";
+                                NoteFrame note = new NoteFrame(entry.getValue(), entry.getKey(), theme, 240, 320, 0, 0);
                                 note.start(new Stage());
                             }
                         }
@@ -86,6 +88,11 @@ public class LoginController implements Initializable {
         } else {
             String usrname = username.getText();
             String paswd = pswd.getText();
+
+            if (db.checkUsernameExists(con, usrname)) {
+                System.out.println("Kullanıcı adı kullanımda");
+                return;
+            }
 
             if (paswd == null || paswd.isEmpty() || usrname.isEmpty() || usrname == null)
                 return;

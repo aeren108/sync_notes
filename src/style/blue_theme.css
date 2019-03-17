@@ -1,0 +1,132 @@
+.button {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-font-family:"Helvetica";
+    -fx-font-size: 1.5em; /* 12 */
+    -fx-text-fill: #FFFFFF;
+}
+
+.button:hover {
+    -fx-background-color: #9be6ff;
+}
+
+.text-area {
+    -fx-background-color: transparent;
+    -fx-background-insets: -0.4, 1, 2;
+    -fx-background-radius: 3.4, 2, 2;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-font-size: 1.2em; /* 12 */
+    -fx-font-family:"Helvetica";
+}
+
+.hbox {
+    -fx-background-color: #38a1e2;
+}
+
+.text-area .content {
+    -fx-background-color: #ccffff;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-bar .increment-button {
+    visibility: hidden;
+}
+
+.text-area .scroll-bar .decrement-button {
+    visibility: hidden;
+}
+
+.text-area .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-bar:vertical .track-background {
+    visibility: hidden;
+}
+
+.text-area .scroll-bar:vertical .track {
+    visibility: hidden;
+}
+
+.text-area .hide-thumb .scroll-bar:vertical .thumb {
+    -fx-background-color: transparent;
+}
+
+.ttip{
+    -fx-background-color: #5bbfff;
+    -fx-text-fill: #262626;
+    -fx-font-size: 0.95em;
+    -fx-background-radius: 0 0 0 0;
+    -fx-opacity: 0.7;
+}
+
+.menu-button {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-font-family:"Helvetica";
+    -fx-font-size: 1.5em; /* 12 */
+    -fx-text-fill: white;
+}
+
+.menu-button .label {
+    -fx-background-color: #38a1e2;
+    -fx-text-fill: white;
+}
+
+.menu-button .label:hover {
+     -fx-background-color: #9be6ff;
+}
+
+.menu-button .arrow-button {
+    -fx-padding: 0;
+}
+
+.menu-button .arrow-button .arrow {
+    -fx-padding: 0;
+}
+
+.menu-item {
+    -fx-background-color: #bcffff;
+    -fx-font-size: 1em;
+}
+
+.menu-item:hover {
+    -fx-background-color: #91d4ff;
+}
+
+.menu-item .label {
+    -fx-background-color: #bcffff;
+    -fx-text-fill: #262626;
+}
+
+.menu-item:hover .label {
+    -fx-background-color: #91d4ff;
+    -fx-text-fill: #262626;
+}
+
+.context-menu {
+    -fx-background-color: #bcffff;
+}
+
+.menu .menu-item .label {
+    -fx-font-size: 0.7em;
+}
+
+.jfx-snackbar-content {
+    -fx-background-color: #5bbfffd9;
+
+}
+
+.jfx-snackbar-toast {
+   -fx-text-fill: #000000;
+   -fx-opacity: 1.0;
+   -fx-font-size: 1em;
+}

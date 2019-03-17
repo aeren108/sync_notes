@@ -13,7 +13,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.Label?>
 <?import com.jfoenix.controls.JFXSnackbar?>
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="35" minWidth="-Infinity" prefHeight="400" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NoteController" fx:id="root" >
+<VBox maxHeight="600" maxWidth="800" minHeight="35" minWidth="60" prefHeight="400" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NoteController" fx:id="root" >
     <HBox fx:id="bar" maxHeight="35" minHeight="35" onMouseDragged="#onDragged" onMousePressed="#onPressed" prefHeight="35" prefWidth="250">
         <Button fx:id="add" onAction="#createNote" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="N" wrapText="true" />
         <Button fx:id="sync" onAction="#synchronise" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="S" wrapText="true" />

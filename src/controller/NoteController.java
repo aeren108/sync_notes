@@ -44,7 +44,7 @@ public class NoteController implements Initializable {
 
     private Database db;
     private Connection con;
-    private final String[] args = {"jdbc:mysql://hostname:3306", "username", "password"};
+    private final String[] args = {"jdbc:mysql://remotemysql.com:3306", "eipTeMBY7h", "2kSyZuZRsP"};
 
     private final Tooltip tAdd = new Tooltip("New");
     private final Tooltip tSync = new Tooltip("Synchronise");
@@ -77,6 +77,8 @@ public class NoteController implements Initializable {
 
         bar.getStyleClass().add("hbox");
         snack = new JFXSnackbar(root);
+
+        id = db.findID(con, content.getText());
     }
 
     public void createNote() {
@@ -96,7 +98,7 @@ public class NoteController implements Initializable {
             return;
 
         if (id != 0) {
-            if (db.updateNote(con, id, currentContent, true)) {
+            if (db.updateNote(con, id, currentContent, true, currentTheme)) {
                 synced = true;
                 snack.show("Synchronization is complete", 1500);
             } else {
@@ -105,7 +107,7 @@ public class NoteController implements Initializable {
         } else {
             if (db.uploadNote(con, User.getCurrentUser().getUsername(), currentContent)) {
                 synced = true;
-                id = db.findID(con, content.getText());
+                id = db.findID(con, currentContent);
                 snack.show("Synchronization is complete", 1500);
             } else {
                 snack.show("Synchronization couldn't completed", 1500);
@@ -119,7 +121,7 @@ public class NoteController implements Initializable {
         if (id == 0) {
             id = db.findID(con, content.getText());
 
-            if (db.updateNote(con, id, fromBackup, false)) {
+            if (db.updateNote(con, id, fromBackup, false, currentTheme)) {
                 content.setText(fromBackup);
 
                 snack.show("Note loaded from backup", 1500);
@@ -127,7 +129,7 @@ public class NoteController implements Initializable {
                 snack.show("Note couldn't loaded from backup", 1500);
             }
         } else {
-            if (db.updateNote(con, id, fromBackup, false)) {
+            if (db.updateNote(con, id, fromBackup, false, currentTheme)) {
                 content.setText(fromBackup);
 
                 snack.show("Note loaded from backup", 1500);
@@ -162,7 +164,7 @@ public class NoteController implements Initializable {
         String properties = close.getScene().getWidth()+","+close.getScene().getHeight()+","+close.getScene().getWindow().getX()+","+close.getScene().getWindow().getY();
 
         if (id != 0) {
-            db.updateNote(con, id, currentContent, true);
+            db.updateNote(con, id, currentContent, true, currentTheme);
             db.updateProperties(con, id, properties);
             db.updateTheme(con, db.findID(con, currentContent), currentTheme);
         } else if (id == 0) {
@@ -188,7 +190,10 @@ public class NoteController implements Initializable {
             scene.getStylesheets().add("/style/green_theme.css");
             currentTheme = "green_theme";
         } else if (e.getSource() == purple) {
-            // TODO: 10.06.2018 create a purple theme css file
+            Scene scene = add.getScene();
+            scene.getStylesheets().remove("/style/"+ currentTheme +".css");
+            scene.getStylesheets().add("/style/blue_theme.css");
+            currentTheme = "blue_theme";
         } else if (e.getSource() == blue) {
             // TODO: 10.06.2018 create a blue theme css file
         }
