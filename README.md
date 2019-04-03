@@ -8,6 +8,7 @@ This is the desktop application.
 ![Yellow Theme](https://github.com/aeren108/sync_notes/blob/master/pics/sync_notes-01.png)
 ![Login/Register Screen](https://github.com/aeren108/sync_notes/blob/master/pics/sync_notes-04.png)
 ![Expanded](https://github.com/aeren108/sync_notes/blob/master/pics/sync_notes-03.png)
+![Three Colored Theme](https://github.com/aeren108/sync_notes/blob/master/pics/sync-notes-05.png)
 
 I am using letters instead of icons <br><br>
 
