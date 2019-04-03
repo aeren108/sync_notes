@@ -44,7 +44,7 @@ public class NoteController implements Initializable {
 
     private Database db;
     private Connection con;
-    private final String[] args = {"jdbc:mysql://remotemysql.com:3306", "eipTeMBY7h", "2kSyZuZRsP"};
+    private final String[] args = {"jdbc:mysql://remotemysql.com:3306/eipTeMBY7h", "eipTeMBY7h", "2kSyZuZRsP"};
 
     private final Tooltip tAdd = new Tooltip("New");
     private final Tooltip tSync = new Tooltip("Synchronise");
@@ -86,6 +86,10 @@ public class NoteController implements Initializable {
             NoteFrame note = new NoteFrame();
             note.setPosition(add.getScene().getWindow().getX() - add.getScene().getWindow().getWidth() - 10, add.getScene().getWindow().getY());
             note.start(new Stage());
+
+            ScrollBar scroll = (ScrollBar) content.lookup(".scroll-bar:vertical");
+            scroll.setDisable(true);
+
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -163,19 +167,20 @@ public class NoteController implements Initializable {
         String currentContent = content.getText();
         String properties = close.getScene().getWidth()+","+close.getScene().getHeight()+","+close.getScene().getWindow().getX()+","+close.getScene().getWindow().getY();
 
+        Stage s = (Stage) close.getScene().getWindow();
+        s.close();
+
         if (id != 0) {
             db.updateNote(con, id, currentContent, true, currentTheme);
             db.updateProperties(con, id, properties);
             db.updateTheme(con, db.findID(con, currentContent), currentTheme);
         } else if (id == 0) {
-            if (!synced)
+            if (!synced) {
                 db.uploadNote(con, User.getCurrentUser().getUsername(), currentContent);
+            }
             db.updateProperties(con, db.findID(con, currentContent), properties);
             db.updateTheme(con, db.findID(con, currentContent), currentTheme);
         }
-
-        Stage s = (Stage) close.getScene().getWindow();;
-        s.close();
     }
 
     public void handleTheme(ActionEvent e) {
@@ -189,13 +194,13 @@ public class NoteController implements Initializable {
             scene.getStylesheets().remove("/style/"+ currentTheme +".css");
             scene.getStylesheets().add("/style/green_theme.css");
             currentTheme = "green_theme";
-        } else if (e.getSource() == purple) {
+        } else if (e.getSource() == blue) {
             Scene scene = add.getScene();
             scene.getStylesheets().remove("/style/"+ currentTheme +".css");
             scene.getStylesheets().add("/style/blue_theme.css");
             currentTheme = "blue_theme";
-        } else if (e.getSource() == blue) {
-            // TODO: 10.06.2018 create a blue theme css file
+        } else if (e.getSource() == purple) {
+            // TODO: 10.06.2018 create a purple theme css file
         }
     }
 

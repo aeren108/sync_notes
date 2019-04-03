@@ -35,5 +35,5 @@
         <Button fx:id="close" onAction="#close" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="X" wrapText="true" />
     </HBox>
 
-    <TextArea fx:id="content" minHeight="100" minWidth="150" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
+    <TextArea fx:id="content" minHeight="100" minWidth="150" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" wrapText="true"/>
 </VBox>

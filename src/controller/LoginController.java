@@ -22,7 +22,7 @@ public class LoginController implements Initializable {
 
     private Database db;
     private Connection con;
-    private final String[] args = {"jdbc:mysql://remotemysql.com:3306", "eipTeMBY7h", "2kSyZuZRsP"};
+    private final String[] args = {"jdbc:mysql://remotemysql.com:3306/eipTeMBY7h", "eipTeMBY7h", "2kSyZuZRsP"};
 
     @FXML private TextField username;
     @FXML private TextField pswd;
@@ -32,12 +32,15 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            db = Database.getInstance();
-            con = db.createConnection(args);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+        new Thread(() -> {
+            try {
+                db = Database.getInstance();
+                con = db.createConnection(args);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     public void handleAction(ActionEvent e) {

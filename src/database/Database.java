@@ -35,7 +35,7 @@ public class Database {
         System.out.println(hashedPswd);
 
         try {
-            String query = "select pswd from eipTeMBY7h.users where username='"+username+"';";
+            String query = "select pswd from users where username='"+username+"';";
             Statement s = con.createStatement();
 
             ResultSet rs = s.executeQuery(query);
@@ -46,7 +46,7 @@ public class Database {
             else {
                 String pswddb = rs.getString("pswd");
 
-                success = BCrypt.checkpw(passwd, hashedPswd);
+                return BCrypt.checkpw(passwd, pswddb);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,12 +59,12 @@ public class Database {
     public boolean checkUsernameExists(Connection con, String username) {
         boolean isExists = true;
         try {
-            String query = "select username from eipTeMBY7h.users;";
+            String query = "select username from users WHERE username='" + username +"';";
             Statement s = con.createStatement();
 
             ResultSet rs = s.executeQuery(query);
 
-            isExists =  rs.next();
+            return rs.next();
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -77,7 +77,7 @@ public class Database {
         String hashedPswd = BCrypt.hashpw(passwd, BCrypt.gensalt());
 
         try {
-            String query = "insert into eipTeMBY7h.users values (NULL, '" + username + "', '" + hashedPswd + "');";
+            String query = "insert into users values (NULL, '" + username + "', '" + hashedPswd + "');";
             Statement s = con.createStatement();
 
             s.executeUpdate(query);
@@ -96,7 +96,7 @@ public class Database {
         String hashedPswd = BCrypt.hashpw(passwd, BCrypt.gensalt());
 
         try {
-            String query = "delete from eipTeMBY7h.users where username=? and pswd=?;";
+            String query = "delete from users where username=? and pswd=?;";
             PreparedStatement ps = con.prepareStatement(query);
 
             ps.setString(1, username);
@@ -115,7 +115,7 @@ public class Database {
     public String fetchNote(Connection con, int id) {
         String note = "";
         try {
-            String query = "select note from eipTeMBY7h.notes where id="+id+";";
+            String query = "select note from notes where id="+id+";";
             Statement s = con.createStatement();
 
             ResultSet rs = s.executeQuery(query);
@@ -134,7 +134,7 @@ public class Database {
         Map<Integer, String> notes = new HashMap<>();
 
         try {
-            String query = "select id, note from eipTeMBY7h.notes where who='"+username+"';";
+            String query = "select id, note from notes where who='"+username+"';";
             Statement s = con.createStatement();
 
             ResultSet rs = s.executeQuery(query);
@@ -154,7 +154,7 @@ public class Database {
         boolean success;
 
         try {
-            String query = "delete from eipTeMBY7h.notes where id=?;";
+            String query = "delete from notes where id=?;";
             PreparedStatement ps = con.prepareStatement(query);
 
             ps.setInt(1, id);
@@ -173,7 +173,7 @@ public class Database {
         boolean success;
 
         try {
-            String query = "insert into eipTeMBY7h.notes values (NULL, ?, ?, ?, ?, ?);";
+            String query = "insert into notes values (NULL, ?, ?, ?, ?, ?);";
             PreparedStatement ps = con.prepareStatement(query);
 
             ps.setString(1, username);
@@ -199,7 +199,7 @@ public class Database {
             String toBackup = fetchNote(con, id);
 
             if (!toBackup.equals(content) && backup) {
-                String query0 = "update eipTeMBY7h.notes set backup=? where id=?;";
+                String query0 = "update notes set backup=? where id=?;";
                 PreparedStatement prs = con.prepareStatement(query0);
 
                 prs.setString(1, toBackup);
@@ -207,7 +207,7 @@ public class Database {
                 prs.executeUpdate();
             }
 
-            String query1 = "update eipTeMBY7h.notes set note=?, theme=? where id=?;";
+            String query1 = "update notes set note=?, theme=? where id=?;";
             PreparedStatement ps = con.prepareStatement(query1);
 
             ps.setString(1, content);
@@ -228,10 +228,10 @@ public class Database {
         String backupNote = "";
 
         try {
-            String fetchQuery = "select backup from eipTeMBY7h.notes where id='" + id + "';";
+            String fetchQuery = "select backup from notes where id='" + id + "';";
             Statement fetchStmt = con.createStatement();
 
-            String updateQuery = "update eipTeMBY7h.notes set backup=? where id=?;";
+            String updateQuery = "update notes set backup=? where id=?;";
             PreparedStatement updateStmt = con.prepareStatement(updateQuery);
 
             updateStmt.setString(1, "");
@@ -254,7 +254,7 @@ public class Database {
     public int findID(Connection con, String content) {
         int id = 0;
         try {
-            String query = "select id from eipTeMBY7h.notes where note='"+content+"';";
+            String query = "select id from notes where note='"+content+"';";
             Statement s = con.createStatement();
 
             ResultSet rs = s.executeQuery(query);
@@ -273,7 +273,7 @@ public class Database {
     public String fetchProperties(Connection con, int id) {
         String properties = "";
         try {
-            String query = "select properties from eipTeMBY7h.notes where id="+id+";";
+            String query = "select properties from notes where id="+id+";";
             Statement s = con.createStatement();
 
             ResultSet rs = s.executeQuery(query);
@@ -293,7 +293,7 @@ public class Database {
         boolean success;
 
         try {
-            String query1 = "update eipTeMBY7h.notes set properties=? where id=?;";
+            String query1 = "update notes set properties=? where id=?;";
             PreparedStatement ps = con.prepareStatement(query1);
 
             ps.setString(1, properties);
@@ -312,7 +312,7 @@ public class Database {
     public String fetchTheme(Connection con, int id) {
         String theme = "";
         try {
-            String query = "select theme from eipTeMBY7h.notes where id="+id+";";
+            String query = "select theme from notes where id="+id+";";
             Statement s = con.createStatement();
 
             ResultSet rs = s.executeQuery(query);
@@ -332,7 +332,7 @@ public class Database {
         boolean success;
 
         try {
-            String query1 = "update eipTeMBY7h.notes set theme=? where id=?;";
+            String query1 = "update notes set theme=? where id=?;";
             PreparedStatement ps = con.prepareStatement(query1);
 
             ps.setString(1, theme);

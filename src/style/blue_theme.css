@@ -22,6 +22,14 @@
     -fx-font-family:"Helvetica";
 }
 
+.text-area .scroll-bar:vertical:disabled {
+    -fx-opacity: 0;
+}
+
+.text-area .scroll-bar:vertical {
+    -fx-opacity: 0;
+}
+
 .hbox {
     -fx-background-color: #38a1e2;
 }
@@ -30,33 +38,12 @@
     -fx-background-color: #ccffff;
 }
 
-.text-area .scroll-pane {
-    -fx-background-color: transparent;
+.scroll-pane {
+    -fx-hbar-policy: never;
+    -fx-vbar-policy: never;
 }
 
-.text-area .scroll-bar .increment-button {
-    visibility: hidden;
-}
 
-.text-area .scroll-bar .decrement-button {
-    visibility: hidden;
-}
-
-.text-area .scroll-bar:vertical {
-    -fx-background-color: transparent;
-}
-
-.text-area .scroll-bar:vertical .track-background {
-    visibility: hidden;
-}
-
-.text-area .scroll-bar:vertical .track {
-    visibility: hidden;
-}
-
-.text-area .hide-thumb .scroll-bar:vertical .thumb {
-    -fx-background-color: transparent;
-}
 
 .ttip{
     -fx-background-color: #5bbfff;
