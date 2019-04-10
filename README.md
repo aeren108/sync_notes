@@ -3,7 +3,7 @@ sync_notes is an application that allows you to synchronise sticky notes between
 This is the desktop application.
 
 # Screenshots
-![Three Colored Theme](https://github.com/aeren108/sync_notes/blob/master/screenshots/sync-notes-05.png)
+![Three Colored Theme](https://github.com/aeren108/sync_notes/blob/master/screenshots/sync_notes-05.png)
 ![Login/Register Screen](https://github.com/aeren108/sync_notes/blob/master/screenshots/sync_notes-04.png)
 ![Expanded](https://github.com/aeren108/sync_notes/blob/master/screenshots/sync_notes-03.png)
 
