@@ -51,7 +51,9 @@ public class NoteFrame extends Application {
         scene.setResizable(true);
 
         NoteController con = loader.getController();
-        con.setContent(note);
+
+        if (!note.equals(""))
+            con.setContent(note);
         con.setID(id);
         con.setTheme(theme);
 

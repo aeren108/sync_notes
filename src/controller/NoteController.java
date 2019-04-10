@@ -4,6 +4,7 @@ import auth.User;
 import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXSpinner;
 import database.Database;
+import editor.Editor;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,7 +41,7 @@ public class NoteController implements Initializable {
     @FXML private MenuItem purple;
     @FXML private MenuItem blue;
 
-    @FXML private TextArea content;
+    @FXML private Editor content;
 
     private Database db;
     private Connection con;
@@ -78,7 +79,7 @@ public class NoteController implements Initializable {
         bar.getStyleClass().add("hbox");
         snack = new JFXSnackbar(root);
 
-        id = db.findID(con, content.getText());
+        id = db.findID(con, content.getHTML());
     }
 
     public void createNote() {
@@ -96,7 +97,7 @@ public class NoteController implements Initializable {
     }
 
     public void synchronise() {
-        String currentContent = content.getText();
+        String currentContent = content.getHTML();
 
         if (currentContent.isEmpty() || currentContent == null)
             return;
@@ -123,10 +124,10 @@ public class NoteController implements Initializable {
         String fromBackup = db.loadFromBackup(con, id);
 
         if (id == 0) {
-            id = db.findID(con, content.getText());
+            id = db.findID(con, content.getHTML());
 
             if (db.updateNote(con, id, fromBackup, false, currentTheme)) {
-                content.setText(fromBackup);
+                content.setHTML(fromBackup);
 
                 snack.show("Note loaded from backup", 1500);
             } else {
@@ -134,7 +135,7 @@ public class NoteController implements Initializable {
             }
         } else {
             if (db.updateNote(con, id, fromBackup, false, currentTheme)) {
-                content.setText(fromBackup);
+                content.setHTML(fromBackup);
 
                 snack.show("Note loaded from backup", 1500);
             } else {
@@ -148,7 +149,7 @@ public class NoteController implements Initializable {
             Stage s = (Stage) del.getScene().getWindow();
             s.close();
         } else if (id == 0 && synced) {
-            id = db.findID(con, content.getText());
+            id = db.findID(con, content.getHTML());
             if (db.deleteNote(con, id)) {
                 Stage s = (Stage) del.getScene().getWindow();;
                 s.close();
@@ -164,7 +165,7 @@ public class NoteController implements Initializable {
     }
 
     public void close() {
-        String currentContent = content.getText();
+        String currentContent = content.getHTML();
         String properties = close.getScene().getWidth()+","+close.getScene().getHeight()+","+close.getScene().getWindow().getX()+","+close.getScene().getWindow().getY();
 
         Stage s = (Stage) close.getScene().getWindow();
@@ -244,7 +245,7 @@ public class NoteController implements Initializable {
     }
 
     public void setContent(String content) {
-        this.content.setText(content);
+        this.content.setHTML(content);
     }
 
     public void setID(int id) {
@@ -253,5 +254,7 @@ public class NoteController implements Initializable {
 
     public void setTheme(String theme) {
         currentTheme = theme;
+        Scene scene = add.getScene();
+        scene.getStylesheets().add("/style/"+ currentTheme +".css");
     }
 }

@@ -13,11 +13,12 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.Label?>
 <?import com.jfoenix.controls.JFXSnackbar?>
+<?import editor.Editor?>
 <VBox maxHeight="600" maxWidth="800" minHeight="35" minWidth="60" prefHeight="400" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NoteController" fx:id="root" >
     <HBox fx:id="bar" maxHeight="35" minHeight="35" onMouseDragged="#onDragged" onMousePressed="#onPressed" prefHeight="35" prefWidth="250">
         <Button fx:id="add" onAction="#createNote" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="N" wrapText="true" />
         <Button fx:id="sync" onAction="#synchronise" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="S" wrapText="true" />
-        <MenuButton mnemonicParsing="false" wrapText="true" text="&#9660;"> <!-- &#9660; = Down arrow character -->
+        <MenuButton mnemonicParsing="false" wrapText="true" text="&#9660;"> <!-- &#9660; = Down arrow character --> &#8226;
             <items>
                 <MenuItem fx:id="backup" mnemonicParsing="false" text="Load backup" onAction="#loadBackups"/>
                 <Menu fx:id="menu" mnemonicParsing="false" text="Change theme">
@@ -34,6 +35,5 @@
         <Button fx:id="del" onAction="#delete" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="D" wrapText="true" />
         <Button fx:id="close" onAction="#close" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" text="X" wrapText="true" />
     </HBox>
-
-    <TextArea fx:id="content" minHeight="100" minWidth="150" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" wrapText="true"/>
+    <Editor fx:id="content"/>
 </VBox>

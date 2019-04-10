@@ -1,0 +1,96 @@
+fieldset {
+    border: none;
+}
+[contenteditable]:focus {
+    outline: 0px solid transparent;
+}
+
+
+
+.editor {
+    height: 84vh;
+    background-color: #fffdbc;
+    margin-top: 10px;
+    margin-left: 10px;
+    padding-right:8px;
+    font-family: 'Helvetica';
+    font-size: 16px;
+    overflow-y: scroll;
+    max-height:84vh;
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    background-color: #fffdbc;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+footer {
+    margin:0;
+    padding: 0;
+    width: 100%
+    overflow: visible;
+}
+
+.toolbar {
+    background-color: #ffdf51;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    height: 30px;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+}
+
+.toolbar button {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 5px;
+    color: black;
+    height: 20px;
+    border: none;
+    background-color: transparent;
+    font-family: "Helvetica";
+}
+
+.toolbar button:hover {
+    border-radius:2px;
+    background-color: rgba(255, 255, 255, 0.6);
+
+}
+
+.toolbar button:active {
+    border-radius:2px;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+ul {
+    list-style-type:square
+}
+
+.editor::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.editor::-webkit-scrollbar-track {
+  background: transparent;
+  width: 10px;
+  border: solid 3px transparent;
+
+}
+
+/* Handle */
+.editor::-webkit-scrollbar-thumb {
+  background: transparent
+ }
+
