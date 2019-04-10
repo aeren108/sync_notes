@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Title</title>
-        <script src="panel.js"></script>
+
     </head>
 
     <body>
@@ -18,5 +18,15 @@
             <button id="strike" type="button"><s>S</s></button>
             <button id="ulist" type="button">List</button>
         </div>
+
+        <script>
+            document.getElementById("bold").onclick = function() {document.execCommand("bold")}
+            document.getElementById("underline").onclick = function() {document.execCommand("underline")}
+            document.getElementById("italic").onclick = function() {document.execCommand("italic")}
+            document.getElementById("strike").onclick = function() {document.execCommand("strikethrough")}
+            document.getElementById("ulist").onclick = function() {document.execCommand("insertUnorderedList")}
+
+            document.getElementById("editor").focus();
+        </script>
     </footer>
 </html>
