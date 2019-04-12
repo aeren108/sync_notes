@@ -1,13 +1,18 @@
 package controller;
 
 import auth.User;
+import com.jfoenix.controls.JFXSnackbar;
 import database.Database;
 import hash.BCrypt;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import screens.NoteFrame;
 
@@ -23,6 +28,11 @@ public class LoginController implements Initializable {
     private Database db;
     private Connection con;
     private final String[] args = {"jdbc:mysql://remotemysql.com:3306/eipTeMBY7h", "eipTeMBY7h", "2kSyZuZRsP"};
+
+    private JFXSnackbar snack;
+    private boolean focus = true;
+
+    @FXML private VBox root;
 
     @FXML private TextField username;
     @FXML private TextField pswd;
@@ -41,6 +51,16 @@ public class LoginController implements Initializable {
                 e.printStackTrace();
             }
         }).start();
+
+        snack = new JFXSnackbar(root);
+
+        //Remove focus from textfield to see hint
+        username.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue && focus) {
+                root.requestFocus();
+                focus = false;
+            }
+        });
     }
 
     public void handleAction(ActionEvent e) {
@@ -48,8 +68,10 @@ public class LoginController implements Initializable {
             String usrname = username.getText();
             String paswd = pswd.getText();
 
-            if (paswd == null || paswd.isEmpty() || usrname.isEmpty() || usrname == null)
+            if (paswd == null || paswd.isEmpty() || usrname.isEmpty()) {
+                snack.show("Fill the fields", 1500);
                 return;
+            }
 
             if (db.checkLogin(con, usrname, paswd)) {
                 User user = new User(usrname, BCrypt.hashpw(paswd, BCrypt.gensalt()), db.fetchNotes(con, usrname));
@@ -87,18 +109,17 @@ public class LoginController implements Initializable {
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
+            } else {
+                snack.show("Username and password isn't matching", 1500);
             }
         } else {
             String usrname = username.getText();
             String paswd = pswd.getText();
 
             if (db.checkUsernameExists(con, usrname)) {
-                System.out.println("Kullanıcı adı kullanımda");
+                snack.show("Username is in use", 1500);
                 return;
             }
-
-            if (paswd == null || paswd.isEmpty() || usrname.isEmpty() || usrname == null)
-                return;
 
             if (db.createUser(con, usrname, paswd)) {
                 User user = new User(usrname, BCrypt.hashpw(paswd, BCrypt.gensalt()), db.fetchNotes(con, usrname));
@@ -112,6 +133,8 @@ public class LoginController implements Initializable {
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
+            } else {
+                snack.show("An error has occured", 1500);
             }
         }
     }

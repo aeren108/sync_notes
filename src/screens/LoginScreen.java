@@ -13,6 +13,7 @@ public class LoginScreen extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/style/login.fxml"));
         Scene scene = new Scene(root, 350, 220);
+        scene.getStylesheets().add("/style/login.css");
 
         primaryStage.setTitle("Sync-Notes");
         primaryStage.setResizable(false);

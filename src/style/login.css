@@ -1,0 +1,23 @@
+VBox {
+    -fx-background-color: #ff6347;
+}
+
+.button {
+    -fx-background-color: #3a3a3a;
+    -fx-text-fill: white;
+}
+
+.text-field {
+    -fx-background-color: #3a3a3a;
+    -fx-text-fill: white;
+}
+
+.jfx-snackbar-content {
+    -fx-background-color: #3a3a3acc;
+}
+
+.jfx-snackbar-toast {
+   -fx-text-fill: white;
+   -fx-opacity: 1.0;
+   -fx-font-size: 1em;
+}
