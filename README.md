@@ -3,8 +3,8 @@ sync_notes is an application that allows you to synchronise sticky notes between
 Inspired from Microsoft Sticky Notes.
 
 # Screenshots
-<img src="https://github.com/aeren108/sync_notes/blob/master/screenshots/sync-notes-05.png" alt="Three Colored Theme"/>
-<img src="https://github.com/aeren108/sync_notes/blob/master/screenshots/sync-notes-03.png" alt="Expanded View"/>
+<img src="screenshots/sync-notes-05.png" alt="Three Colored Theme"/>
+<img src="screenshots/sync-notes-03.png" alt="Expanded View"/>
 
 I used letters instead of icons <br>
 
