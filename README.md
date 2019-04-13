@@ -7,6 +7,7 @@ Inspired from Microsoft Sticky Notes.
 <img src="screenshots/sync-notes-05.png" alt="Three Colored Theme"/>
 <img src="screenshots/sync-notes-03.png" alt="Expanded View"/>
 
+#### Footnote
 I used letters instead of icons. <br>
 
 * N  -> New note<br>
