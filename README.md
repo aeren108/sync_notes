@@ -7,7 +7,7 @@ This is the desktop application.
 ![Expanded](https://github.com/aeren108/sync_notes/blob/master/screenshots/sync_notes-03.png)
 
 
-I am using letters instead of icons <br><br>
+I used letters instead of icons <br>
 
 N  -> New note<br>
 S  -> Synchronize (automatically backups old note)<br>
