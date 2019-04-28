@@ -1,7 +1,6 @@
 # Synchronous Sticky Notes
 ***
-Sync Notes is an application that allows you to synchronise sticky notes between android and desktop. This is the desktop application.
-Inspired from Microsoft Sticky Notes.
+Sync Notes is an application that allows you to synchronise sticky notes between android and desktop. Inspired from Microsoft Sticky Notes. This is the desktop app written in Java and made with JavaFX.
 
 ## Screenshots
 <img src="screenshots/sync-notes-05.png" alt="Three Colored Theme"/>
