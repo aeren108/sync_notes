@@ -29,7 +29,7 @@ java -jar sync_notes.jar
 ```
 
 ## Authors
- - [@aeren108] (https://github.com/aeren108)
+ - [@aeren108](https://github.com/aeren108)
  
  ## License
  
