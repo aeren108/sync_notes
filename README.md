@@ -20,11 +20,6 @@ Inspired from Microsoft Sticky Notes. This is the desktop app written in Java an
 ### Installing
 [Download](https://github.com/aeren108/sync_notes/releases/download/v1.1/sync_notes.jar) the latest release.
 
-### Executing Program
-``` 
-java -jar sync_notes.jar
-```
-
 ## Authors
  - [@aeren108](https://github.com/aeren108)
  
